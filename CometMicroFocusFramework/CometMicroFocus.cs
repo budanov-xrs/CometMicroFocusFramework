@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using BR.AN.PviServices;
 using Cpu = BR.AN.PviServices.Cpu;
 using Service = BR.AN.PviServices.Service;
@@ -504,6 +505,8 @@ namespace CometMicroFocusFramework
 
             // Connect CPU
             _cpu.Connect();
+            
+            new Thread(Update).Start();
         }
 
         /// <summary> 
@@ -687,7 +690,9 @@ namespace CometMicroFocusFramework
 
         protected void Update()
         {
-            throw new NotImplementedException();
+            Thread.Sleep(500);
+            GetActualMa();
+            GetActualKv();
         }
 
         protected void Connect()
